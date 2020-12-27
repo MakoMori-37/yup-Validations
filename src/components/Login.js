@@ -5,8 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
@@ -46,7 +44,7 @@ function Login({ handleClick }) {
           type="password"
         />
 
-<Button className={classes.but} variant="contained" color="primary">
+<Button type='submit' className={classes.but} variant="contained" color="primary">
         Sign In
       </Button>
       <Link onClick={handleClick} >

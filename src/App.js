@@ -6,7 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 
 function App() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     setOpen(prev => !prev)
