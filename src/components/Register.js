@@ -142,7 +142,7 @@ function Register({ handleClick }) {
 }
 
 const Ris = styled.div`
-  height: 650px;
+  height: 680px;
   width: 400px;
   background-color: #ebf3e6;
   border-radius: 2px;
