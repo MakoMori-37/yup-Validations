@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
-import Alert from '@material-ui/lab/Alert';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   inp: {
@@ -41,7 +41,7 @@ function Register({ handleClick }) {
     checked: true,
   });
 
-
+  console.log(state)
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -84,7 +84,6 @@ function Register({ handleClick }) {
           <h1>Signup</h1>
         </Title>
 
-
         <TextField
           className={classes.inp}
           label="Email"
@@ -93,8 +92,10 @@ function Register({ handleClick }) {
           inputRef={register}
           name="email"
         />
-        {errors.email?.message && <Alert severity="error">Email Validation Field is Required</Alert>}
-       
+        {errors.email?.message && (
+          <Alert severity="error">Email Validation Field is Required</Alert>
+        )}
+
         <TextField
           className={classes.inp}
           label="Password"
@@ -104,7 +105,9 @@ function Register({ handleClick }) {
           name="password"
         />
 
-        {errors.password?.message && <Alert severity="error">Password Validation Field is Required</Alert>}
+        {errors.password?.message && (
+          <Alert severity="error">Password Validation Field is Required</Alert>
+        )}
 
         {inputFields.map((inputField, index) => (
           <div key={index}>
@@ -149,8 +152,8 @@ function Register({ handleClick }) {
           label="Accept"
         />
 
-
         <Button
+          disabled={state.checked === false}
           type="submit"
           className={classes.but}
           variant="contained"
