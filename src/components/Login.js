@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
+import Alert from '@material-ui/lab/Alert';
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     height: 50,
     marginTop: 15,
     marginBottom: 15,
-    width: 300,
+    width: 370,
   },
   but: {
     marginTop: 15,
@@ -55,9 +55,10 @@ function Login({ handleClick }) {
           inputRef={register}
           name="email"
         />
-        <Alert>
-          <p>{errors.email?.message}</p>
-        </Alert>
+        {errors.email?.message && (
+          <Alert severity="error">Email Validation Field is Required</Alert>
+        )}
+
         <TextField
           className={classes.inp}
           label="Password"
@@ -67,9 +68,9 @@ function Login({ handleClick }) {
           name="password"
         />
 
-        <Alert>
-          <p>{errors.password?.message}</p>
-        </Alert>
+        {errors.password?.message && (
+          <Alert severity="error">Password Validation Field is Required</Alert>
+        )}
 
         <Button
           type="submit"
@@ -86,7 +87,7 @@ function Login({ handleClick }) {
 }
 
 const Ris = styled.div`
-  height: 400px;
+  height: 430px;
   width: 400px;
   background-color: #ebf3e6;
   border-radius: 2px;
@@ -96,10 +97,10 @@ const Ris = styled.div`
   padding: 15px 15px;
   box-sizing: border-box;
 `;
-const Alert = styled.div`
-  color: #fb633c;
-  margin-top: 10px;
-`;
+// const Alert = styled.div`
+//   color: #fb633c;
+//   margin-top: 10px;
+// `;
 
 const Title = styled.div`
   text-align: center;

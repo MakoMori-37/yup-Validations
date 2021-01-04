@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles({
   inp: {
@@ -35,9 +36,12 @@ function Register({ handleClick }) {
   const [inputFields, setInputFields] = useState([{ fav: "" }]);
 
   const classes = useStyles();
+
   const [state, setState] = useState({
     checked: true,
   });
+
+
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -80,9 +84,7 @@ function Register({ handleClick }) {
           <h1>Signup</h1>
         </Title>
 
-        <Alert>
-          <p>{errors.tel?.message}</p>
-        </Alert>
+
         <TextField
           className={classes.inp}
           label="Email"
@@ -91,9 +93,8 @@ function Register({ handleClick }) {
           inputRef={register}
           name="email"
         />
-        <Alert>
-          <p>{errors.email?.message}</p>
-        </Alert>
+        {errors.email?.message && <Alert severity="error">Email Validation Field is Required</Alert>}
+       
         <TextField
           className={classes.inp}
           label="Password"
@@ -103,9 +104,7 @@ function Register({ handleClick }) {
           name="password"
         />
 
-        <Alert>
-          <p>{errors.password?.message}</p>
-        </Alert>
+        {errors.password?.message && <Alert severity="error">Password Validation Field is Required</Alert>}
 
         {inputFields.map((inputField, index) => (
           <div key={index}>
@@ -125,7 +124,7 @@ function Register({ handleClick }) {
               <RemoveIcon />
             </IconButton>
             <IconButton onClick={handleAddFields}>
-              <AddIcon />
+              <AddIcon style={{ color: "green" }} />
             </IconButton>
           </div>
         ))}
@@ -149,6 +148,7 @@ function Register({ handleClick }) {
           }
           label="Accept"
         />
+
 
         <Button
           type="submit"
@@ -184,10 +184,10 @@ const Condition = styled.div`
   box-sizing: border-box;
 `;
 
-const Alert = styled.div`
-  color: #fb633c;
-  margin-top: 10px;
-`;
+// const Alert = styled.div`
+//   color: #fb633c;
+//   margin-top: 10px;
+// `;
 
 const Title = styled.div`
   text-align: center;
