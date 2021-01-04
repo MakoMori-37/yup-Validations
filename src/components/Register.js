@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Register({ handleClick }) {
+function Register({ handleClick, dark }) {
   const [inputFields, setInputFields] = useState([{ fav: "" }]);
 
   const classes = useStyles();
@@ -41,7 +41,6 @@ function Register({ handleClick }) {
     checked: true,
   });
 
-  console.log(state)
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -78,7 +77,7 @@ function Register({ handleClick }) {
   };
 
   return (
-    <Ris>
+    <Ris dark={dark} >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title>
           <h1>Signup</h1>
@@ -170,7 +169,8 @@ function Register({ handleClick }) {
 const Ris = styled.div`
   height: 680px;
   width: 400px;
-  background-color: #ebf3e6;
+  background-color: ${({dark}) => (dark ? `#54554F` :` #ebf3e6`)};
+  color: ${({dark}) => (dark ? ` #ebf3e6`:`#54554F`)};
   border-radius: 2px;
   display: flex;
   flex-direction: column;
@@ -186,11 +186,6 @@ const Condition = styled.div`
   width: 100%;
   box-sizing: border-box;
 `;
-
-// const Alert = styled.div`
-//   color: #fb633c;
-//   margin-top: 10px;
-// `;
 
 const Title = styled.div`
   text-align: center;

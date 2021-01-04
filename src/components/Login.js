@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Login({ handleClick }) {
+function Login({ handleClick, dark }) {
   let signUpSchema = yup.object().shape({
     email: yup.string().email().required("This field require!!"),
     password: yup.string().required("This field require!!"),
@@ -42,7 +42,7 @@ function Login({ handleClick }) {
 
   const classes = useStyles();
   return (
-    <Ris>
+    <Ris dark={dark}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title>
           <h1>Sign In</h1>
@@ -89,7 +89,8 @@ function Login({ handleClick }) {
 const Ris = styled.div`
   height: 430px;
   width: 400px;
-  background-color: #ebf3e6;
+  background-color: ${({dark}) => (dark ? `#54554F` :` #ebf3e6`)};
+  color: ${({dark}) => (dark ? ` #ebf3e6`:`#54554F`)};
   border-radius: 2px;
   display: flex;
   flex-direction: column;
