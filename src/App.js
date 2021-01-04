@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 import bg from "./bg.webp";
+
+
 import Register from "./components/Register";
 import Login from "./components/Login";
 
@@ -16,9 +18,6 @@ function App() {
   };
 
   const [dark, setDark] = useState(false);
-
-  console.log(dark);
-
   const [state, setState] = useState({
     checked: false,
   });
@@ -70,8 +69,12 @@ const Setting = styled.div`
   position: fixed;
   top: 35px;
   left: 35px;
-  width: 350px;
-  height: 350px;
+  width: 150px;
+  height: 40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 8px;
   background-color: whitesmoke;
 `;
 export default App;

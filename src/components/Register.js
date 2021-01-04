@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -37,10 +37,11 @@ function Register({ handleClick, dark }) {
 
   const classes = useStyles();
 
+ 
+
   const [state, setState] = useState({
     checked: true,
   });
-
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -131,9 +132,10 @@ function Register({ handleClick, dark }) {
           </div>
         ))}
 
-        <Condition>
-          <Title>
+        <Condition  >
+          <Title   >
             <h3>Terms and Conditions</h3>
+           
           </Title>
           <p>1.Definitions The following words and terms </p>
           <p>2.Agreement to these Terms and Conditions</p>
@@ -190,6 +192,7 @@ const Condition = styled.div`
 const Title = styled.div`
   text-align: center;
   margin-bottom: 10px;
+ 
 `;
 
 const Link = styled.a`
