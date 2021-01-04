@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +10,9 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles({
   inp: {
@@ -29,8 +32,10 @@ const useStyles = makeStyles({
 });
 
 function Register({ handleClick }) {
+  const [inputFields, setInputFields] = useState([{ fav: "" }]);
+
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     checked: true,
   });
 
@@ -39,8 +44,6 @@ function Register({ handleClick }) {
   };
 
   let signUpSchema = yup.object().shape({
-    name: yup.string().required("This field require!!"),
-    tel: yup.number().required("This field require!!"),
     email: yup.string().email().required("This field require!!"),
     password: yup.string().required("This field require!!"),
   });
@@ -54,32 +57,29 @@ function Register({ handleClick }) {
     window.location.reload();
   };
 
+  const handleChangeInput = (index, event) => {
+    const values = [...inputFields];
+    values[index][event.target.name] = event.target.value;
+    setInputFields(values);
+  };
+
+  const handleAddFields = () => {
+    setInputFields([...inputFields, { fav: "" }]);
+  };
+
+  const handleRemoveFields = (index) => {
+    const values = [...inputFields];
+    values.splice(index, 1);
+    setInputFields(values);
+  };
+
   return (
     <Ris>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title>
           <h1>Signup</h1>
         </Title>
-        <TextField
-          className={classes.inp}
-          label="Name"
-          variant="outlined"
-          type="text"
-          inputRef={register}
-          name="name"
-        />
 
-        <Alert>
-          <p>{errors.name?.message}</p>
-        </Alert>
-        <TextField
-          className={classes.inp}
-          label="Tel."
-          variant="outlined"
-          type="tel"
-          inputRef={register}
-          name="tel"
-        />
         <Alert>
           <p>{errors.tel?.message}</p>
         </Alert>
@@ -106,6 +106,29 @@ function Register({ handleClick }) {
         <Alert>
           <p>{errors.password?.message}</p>
         </Alert>
+
+        {inputFields.map((inputField, index) => (
+          <div key={index}>
+            <TextField
+              className={classes.inp}
+              label="Your favorite Artist"
+              variant="outlined"
+              type="text"
+              name="fav"
+              value={inputField.fav}
+              onChange={(event) => handleChangeInput(index, event)}
+            />
+            <IconButton
+              disabled={inputFields.length === 1}
+              onClick={() => handleRemoveFields(inputField.index)}
+            >
+              <RemoveIcon />
+            </IconButton>
+            <IconButton onClick={handleAddFields}>
+              <AddIcon />
+            </IconButton>
+          </div>
+        ))}
 
         <Condition>
           <Title>
@@ -151,7 +174,7 @@ const Ris = styled.div`
   align-items: center;
   padding: 15px 15px;
   box-sizing: border-box;
-  overflow-y:scroll;
+  overflow-y: scroll;
 `;
 
 const Condition = styled.div`
