@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,17 +10,13 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveIcon from "@material-ui/icons/Remove";
-import AddIcon from "@material-ui/icons/Add";
 import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   inp: {
-    height: 50,
-    marginTop: 15,
-    marginBottom: 15,
     width: "100%",
+    marginTop:15,
+    marginBottom:15,
   },
 
   but: {
@@ -32,13 +28,9 @@ const useStyles = makeStyles({
   },
 });
 
-function Register({ handleClick, dark }) {
-  const [inputFields, setInputFields] = useState([{ fav: "" }]);
-
+function Register({ formData, setForm, navigation }) {
   const classes = useStyles();
-
- 
-
+  const { username, password, email } = formData;
   const [state, setState] = useState({
     checked: true,
   });
@@ -48,8 +40,9 @@ function Register({ handleClick, dark }) {
   };
 
   let signUpSchema = yup.object().shape({
-    email: yup.string().email().required("This field require!!"),
-    password: yup.string().required("This field require!!"),
+    username: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().required(),
   });
 
   const { register, handleSubmit, errors } = useForm({
@@ -57,34 +50,35 @@ function Register({ handleClick, dark }) {
   });
 
   const onSubmit = (data) => {
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
-    window.location.reload();
-  };
-
-  const handleChangeInput = (index, event) => {
-    const values = [...inputFields];
-    values[index][event.target.name] = event.target.value;
-    setInputFields(values);
-  };
-
-  const handleAddFields = () => {
-    setInputFields([...inputFields, { fav: "" }]);
-  };
-
-  const handleRemoveFields = (index) => {
-    const values = [...inputFields];
-    values.splice(index, 1);
-    setInputFields(values);
+    navigation.next()
   };
 
   return (
-    <Ris dark={dark} >
+    <Ris>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Title>
           <h1>Signup</h1>
         </Title>
 
         <TextField
+          size="small"
+          className={classes.inp}
+          label="Username"
+          variant="outlined"
+          type="text"
+          inputRef={register}
+          name="username"
+        />
+
+          {errors.email?.message && (
+            <Alert severity="error">
+              Username Validation Field is Required
+            </Alert>
+          )}
+
+
+        <TextField
+          size="small"
           className={classes.inp}
           label="Email"
           variant="outlined"
@@ -92,11 +86,13 @@ function Register({ handleClick, dark }) {
           inputRef={register}
           name="email"
         />
-        {errors.email?.message && (
-          <Alert severity="error">Email Validation Field is Required</Alert>
-        )}
+
+          {errors.email?.message && (
+            <Alert severity="error" >Email Validation Field is Required</Alert>
+          )}
 
         <TextField
+          size="small"
           className={classes.inp}
           label="Password"
           variant="outlined"
@@ -105,37 +101,15 @@ function Register({ handleClick, dark }) {
           name="password"
         />
 
-        {errors.password?.message && (
-          <Alert severity="error">Password Validation Field is Required</Alert>
-        )}
-
-        {inputFields.map((inputField, index) => (
-          <div key={index}>
-            <TextField
-              className={classes.inp}
-              label="Your favorite Artist"
-              variant="outlined"
-              type="text"
-              name="fav"
-              value={inputField.fav}
-              onChange={(event) => handleChangeInput(index, event)}
-            />
-            <IconButton
-              disabled={inputFields.length === 1}
-              onClick={() => handleRemoveFields(inputField.index)}
-            >
-              <RemoveIcon />
-            </IconButton>
-            <IconButton onClick={handleAddFields}>
-              <AddIcon style={{ color: "green" }} />
-            </IconButton>
-          </div>
-        ))}
-
-        <Condition  >
-          <Title   >
+          {errors.password?.message && (
+            <Alert severity="error">
+              Password Validation Field is Required
+            </Alert>
+          )}
+ 
+        <Condition>
+          <Title>
             <h3>Terms and Conditions</h3>
-           
           </Title>
           <p>1.Definitions The following words and terms </p>
           <p>2.Agreement to these Terms and Conditions</p>
@@ -159,20 +133,21 @@ function Register({ handleClick, dark }) {
           className={classes.but}
           variant="contained"
           color="primary"
+          
         >
-          Signup
+          Next
         </Button>
-        <Link onClick={handleClick}>Sign In?</Link>
       </form>
     </Ris>
   );
 }
 
+export default Register;
+
 const Ris = styled.div`
-  height: 680px;
+  height: 500px;
   width: 400px;
-  background-color: ${({dark}) => (dark ? `#54554F` :` #ebf3e6`)};
-  color: ${({dark}) => (dark ? ` #ebf3e6`:`#54554F`)};
+  background-color: #ebf3e6;
   border-radius: 2px;
   display: flex;
   flex-direction: column;
@@ -182,6 +157,11 @@ const Ris = styled.div`
   overflow-y: scroll;
 `;
 
+const Title = styled.div`
+  text-align: center;
+  margin-bottom: 10px;
+`;
+
 const Condition = styled.div`
   margin-top: 20px;
   height: 90px;
@@ -189,21 +169,4 @@ const Condition = styled.div`
   box-sizing: border-box;
 `;
 
-const Title = styled.div`
-  text-align: center;
-  margin-bottom: 10px;
- 
-`;
 
-const Link = styled.a`
-  text-align: center;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  text-decoration: underline;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-`;
-
-export default Register;
