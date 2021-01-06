@@ -1,65 +1,59 @@
-import React from 'react'
+import React from "react";
 import { useForm, useStep } from "react-hooks-helper";
 import styled from "styled-components";
 
-import Register from './Register'
-import Favorite from './Favorite'
-import Personal from './Personal'
-import Review from './Review'
-import Submit from './Submit'
+import Register from "./Register";
+import Favorite from "./Favorite";
+import Personal from "./Personal";
+import Review from "./Review";
+import Submit from "./Submit";
 
 const defaultData = {
-    username: "",
-    email: "",
-    password: "",
-    favTeam: "",
-    favPlayer: [],
-    state: "",
-    gender: "",
-    phone: "",
-    
-  };
+  username: "",
+  email: "",
+  password: "",
+  favTeam: "",
+  fav: '',
+  state: "",
+  gender: "",
+  phone: "",
+  subscribe:'',
+};
 
-
-  const steps = [
-    { id: "names" },
-    { id: "fav" },
-    { id: "person" },
-    { id: "review" },
-    { id: "submit" },
-  ];
+const steps = [
+  { id: "names" },
+  { id: "fav" },
+  { id: "person" },
+  { id: "review" },
+  { id: "submit" },
+];
 
 function Stepform() {
+  const [formData, setForm] = useForm(defaultData);
+  const { step, navigation } = useStep({
+    steps,
+    initialStep: 1,
+  });
 
-    const [formData, setForm] = useForm(defaultData);
-    const { step, navigation } = useStep({
-      steps,
-      initialStep: 1,
-    });
-  
-    const props = { formData, setForm, navigation };
-  
-    switch (step.id) {
-      case "names":
-        return <Register {...props} />;
-      case "fav":
-        return <Favorite {...props} />;
-      case "person":
-        return <Personal {...props} />;
-      case "review":
-        return <Review {...props} />;
-      case "submit":
-        return <Submit {...props} />  
-    }
-  
-    return (
-        <Ris>
-            Step form
-        </Ris>
-    )
+  const props = { formData, setForm, navigation };
+
+  switch (step.id) {
+    case "names":
+      return <Register {...props} />;
+    case "fav":
+      return <Favorite {...props} />;
+    case "person":
+      return <Personal {...props} />;
+    case "review":
+      return <Review {...props} />;
+    case "submit":
+      return <Submit {...props} />;
+    default:
+      return <Ris>Step form</Ris>;
+  }
 }
 
-export default Stepform
+export default Stepform;
 
 const Ris = styled.div`
   height: 500px;

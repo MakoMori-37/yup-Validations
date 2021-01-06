@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 function Personal({ formData, setForm, navigation }) {
-  const { state, gender, phone } = formData;
+  const { state, phone } = formData;
 
   return (
     <Ris>

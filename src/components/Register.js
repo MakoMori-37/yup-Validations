@@ -15,8 +15,8 @@ import Alert from "@material-ui/lab/Alert";
 const useStyles = makeStyles({
   inp: {
     width: "100%",
-    marginTop:15,
-    marginBottom:15,
+    marginTop: 15,
+    marginBottom: 15,
   },
 
   but: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 
 function Register({ formData, setForm, navigation }) {
   const classes = useStyles();
-  const { username, password, email } = formData;
   const [state, setState] = useState({
     checked: true,
   });
@@ -50,7 +49,7 @@ function Register({ formData, setForm, navigation }) {
   });
 
   const onSubmit = (data) => {
-    navigation.next()
+    navigation.next();
   };
 
   return (
@@ -67,15 +66,13 @@ function Register({ formData, setForm, navigation }) {
           variant="outlined"
           type="text"
           inputRef={register}
+          onChange={setForm}
           name="username"
         />
 
-          {errors.email?.message && (
-            <Alert severity="error">
-              Username Validation Field is Required
-            </Alert>
-          )}
-
+        {errors.email?.message && (
+          <Alert severity="error">Username Validation Field is Required</Alert>
+        )}
 
         <TextField
           size="small"
@@ -84,12 +81,13 @@ function Register({ formData, setForm, navigation }) {
           variant="outlined"
           type="email"
           inputRef={register}
+          onChange={setForm}
           name="email"
         />
 
-          {errors.email?.message && (
-            <Alert severity="error" >Email Validation Field is Required</Alert>
-          )}
+        {errors.email?.message && (
+          <Alert severity="error">Email Validation Field is Required</Alert>
+        )}
 
         <TextField
           size="small"
@@ -98,15 +96,14 @@ function Register({ formData, setForm, navigation }) {
           variant="outlined"
           type="password"
           inputRef={register}
+          onChange={setForm}
           name="password"
         />
 
-          {errors.password?.message && (
-            <Alert severity="error">
-              Password Validation Field is Required
-            </Alert>
-          )}
- 
+        {errors.password?.message && (
+          <Alert severity="error">Password Validation Field is Required</Alert>
+        )}
+
         <Condition>
           <Title>
             <h3>Terms and Conditions</h3>
@@ -133,7 +130,6 @@ function Register({ formData, setForm, navigation }) {
           className={classes.but}
           variant="contained"
           color="primary"
-          
         >
           Next
         </Button>
@@ -168,5 +164,3 @@ const Condition = styled.div`
   width: 100%;
   box-sizing: border-box;
 `;
-
-
