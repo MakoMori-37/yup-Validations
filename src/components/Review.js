@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import styled from "styled-components";
 
@@ -34,10 +34,8 @@ function Review({ formData, navigation }) {
     switch (subscribe) {
       case true:
         return "Subscribe";
-
       case false:
         return "Unsubscribe";
-
       default:
         return "Unsubscribe";
     }
@@ -59,6 +57,8 @@ function Review({ formData, navigation }) {
           { Password: password },
         ]}
       />
+
+    
       <RenderAccordion
         summary="fav"
         go={go}

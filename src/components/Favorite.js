@@ -17,9 +17,6 @@ function Favorite({ setForm, navigation }) {
     setInputFields([...inputFields, { fav: "" }]);
   };
 
-  const fav = inputFields[0];
-
-  console.log(inputFields[0]);
   const handleRemoveFields = (index) => {
     const values = [...inputFields];
     values.splice(index, 1);
@@ -40,12 +37,8 @@ function Favorite({ setForm, navigation }) {
     setState({ ...state, [event.target.name]: event.target.subscribe });
   };
 
-  const handleSubmit = () => {
-    setForm(fav)
-  }
-
   return (
-    <Ris onSubmit={handleSubmit} >
+    <Ris>
       <Title>
         <h1>Subscribe</h1>
       </Title>
@@ -81,6 +74,7 @@ function Favorite({ setForm, navigation }) {
             name="fav"
             value={inputField.fav}
             onChange={(event) => handleChangeInput(index, event)}
+            onInput={setForm}
           />
           <IconButton
             disabled={inputFields.length === 1}
@@ -100,7 +94,7 @@ function Favorite({ setForm, navigation }) {
           variant="contained"
           onClick={() => navigation.next()}
           fullWidth
-          type='submit'
+          type="submit"
         >
           Next
         </Button>
@@ -156,3 +150,4 @@ const Title = styled.div`
 const Swit = styled.div`
   margin-bottom: 20px;
 `;
+
