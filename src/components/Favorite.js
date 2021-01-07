@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -10,8 +10,17 @@ import AddIcon from "@material-ui/icons/Add";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-function Favorite({ setForm, navigation }) {
+function Favorite({ setForm, navigation, setInputs }) {
   const [inputFields, setInputFields] = useState([{ fav: "" }]);
+
+  const [state, setState] = useState({
+    subscribe: false,
+  });
+
+  useEffect(() => {
+    setInputs([...inputFields])
+  }, [inputFields])
+
 
   const handleAddFields = () => {
     setInputFields([...inputFields, { fav: "" }]);
@@ -29,10 +38,6 @@ function Favorite({ setForm, navigation }) {
     setInputFields(values);
   };
 
-  const [state, setState] = useState({
-    subscribe: true,
-  });
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.subscribe });
   };
@@ -44,7 +49,7 @@ function Favorite({ setForm, navigation }) {
       </Title>
 
       <Select name="favTeam" onChange={setForm}>
-        <option value="-------">-Select Team-</option>
+        <option value="-------">-- Select Team --</option>
         <option value="liverpool">Liverpool</option>
         <option value="manu">Man U</option>
         <option value="arsenal">Arsenal</option>
@@ -65,7 +70,7 @@ function Favorite({ setForm, navigation }) {
       </Swit>
 
       {inputFields.map((inputField, index) => (
-        <div key={index}>
+        <div key={index} >
           <TextField
             size="small"
             label="Favorite Player"
@@ -74,7 +79,6 @@ function Favorite({ setForm, navigation }) {
             name="fav"
             value={inputField.fav}
             onChange={(event) => handleChangeInput(index, event)}
-            onInput={setForm}
           />
           <IconButton
             disabled={inputFields.length === 1}
@@ -94,7 +98,6 @@ function Favorite({ setForm, navigation }) {
           variant="contained"
           onClick={() => navigation.next()}
           fullWidth
-          type="submit"
         >
           Next
         </Button>
@@ -150,4 +153,3 @@ const Title = styled.div`
 const Swit = styled.div`
   margin-bottom: 20px;
 `;
-

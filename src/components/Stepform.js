@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useForm, useStep } from "react-hooks-helper";
 import styled from "styled-components";
 
@@ -13,11 +13,11 @@ const defaultData = {
   email: "",
   password: "",
   favTeam: "",
-  fav: '',
+  fav: [],
   state: "",
   gender: "",
   phone: "",
-  subscribe:'',
+  subscribe:false,
 };
 
 const steps = [
@@ -30,12 +30,14 @@ const steps = [
 
 function Stepform() {
   const [formData, setForm] = useForm(defaultData);
+  const [inputs, setInputs] = useState([]);
+
   const { step, navigation } = useStep({
     steps,
-    initialStep: 0,
+    initialStep: 1,
   });
 
-  const props = { formData, setForm, navigation };
+  const props = { formData, setForm, navigation, setInputs, inputs };
 
   switch (step.id) {
     case "names":

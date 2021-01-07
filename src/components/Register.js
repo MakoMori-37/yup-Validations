@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Register({ formData, setForm, navigation }) {
+function Register({ setForm, navigation }) {
   const classes = useStyles();
   const [state, setState] = useState({
     checked: true,
@@ -48,7 +48,7 @@ function Register({ formData, setForm, navigation }) {
     resolver: yupResolver(signUpSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     navigation.next();
   };
 

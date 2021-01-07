@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 
-function Review({ formData, navigation }) {
+function Review({ formData, navigation, inputs }) {
   const { go } = navigation;
 
   const {
@@ -21,14 +21,11 @@ function Review({ formData, navigation }) {
     email,
     password,
     favTeam,
-    fav,
     state,
     gender,
     phone,
     subscribe,
   } = formData;
-
-  console.log(fav);
 
   const checkSub = () => {
     switch (subscribe) {
@@ -41,7 +38,17 @@ function Review({ formData, navigation }) {
     }
   };
 
-  const subCheck = checkSub()
+  const subCheck = checkSub();
+
+  var myJSON = JSON.stringify(inputs);
+
+  var obj = JSON.parse(myJSON);
+
+  const str = obj.map(a => `${ Object.values(a).join(", ") }`)
+  .join(", ")
+  
+  console.log(str)
+
 
   return (
     <Ris>
@@ -58,14 +65,13 @@ function Review({ formData, navigation }) {
         ]}
       />
 
-    
       <RenderAccordion
         summary="fav"
         go={go}
         details={[
-          { FavTeam: favTeam },
+          { FavoriteTeam: favTeam },
           { Subscribe: subCheck },
-          { favPlayer: fav },
+          { FavoritePlayer: str },
         ]}
       />
       <RenderAccordion
@@ -117,7 +123,7 @@ export const RenderAccordion = ({ summary, details, go }) => (
           const objValue = data[Object.keys(data)[0]];
 
           return (
-            <ListItemText key={index}>{`${objKey}: ${objValue}`}</ListItemText>
+            <ListItemText key={index}>{`${objKey} : ${objValue}`}</ListItemText>
           );
         })}
         <IconButton
